@@ -5,8 +5,8 @@
 Network Working Group                                           J. Kunze
 Internet-Draft                                California Digital Library
 Intended status: Informational                                 E. Bermès
-Expires: 19 January 2023                Bibliothèque nationale de France
-                                                            18 July 2022
+Expires: 13 April 2023                  Bibliothèque nationale de France
+                                                         10 October 2022
 
 
                        The ARK Identifier Scheme
@@ -30,12 +30,24 @@ Abstract
    statement that is both human- and machine-readable.  Tools exist for
    minting, binding, and resolving ARKs.
 
-Responsibility for this Document
+   Responsibility for this Document
 
    The ARK Alliance Technical Working Group [ARKAtech] is responsible
    for the content of this Internet Draft.  The group homepage lists
    monthly meeting notes and agendas starting from March 2019.
    Revisions of the spec are maintained on github at [ARKdrafts].
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at https://arks-
+   org.github.io/arkspec/draft-ark-spec.html.  Status information for
+   this document may be found at https://datatracker.ietf.org/doc/draft-
+   kunze-ark/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/arks-org/arkspec.
 
 Status of This Memo
 
@@ -52,7 +64,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 January 2023.
+   This Internet-Draft will expire on 13 April 2023.
 
 Copyright Notice
 
@@ -106,9 +118,9 @@ Table of Contents
      5.4.  Advice to Web Clients
      5.5.  Enhancements and Related Specifications
      5.6.  Security Considerations
-   6.  References
-   Appendix A.  ARK Maintenance Agency: arks.org
-   Appendix B.  Looking up NMAs Distributed via DNS
+   6.  Appendix A.  ARK Maintenance Agency: arks.org
+   7.  Appendix B.  Looking up NMAs Distributed via DNS
+   8.  Informative References
    Authors' Addresses
 
 1.  Introduction
@@ -348,7 +360,6 @@ Table of Contents
    would act as an intermediary, forwarding commitment statements from
    object hosting services to requestors.
 
-
 1.4.  Definition of Identifier
 
    An identifier is not a string of character data -- an identifier is
@@ -401,14 +412,14 @@ Table of Contents
    ANATOMY OVERVIEW
    ================
 
-        Resolver Service            Compact ARK
-       __________________  ______________________________
-      /                  \/                              \
-      https://example.org/ark:12345/x6np1wh8k/c3/s5.v7.xsl
-      \___________________________/\________/\___________/
+       Resolver Service            Compact ARK
+      __________________  ______________________________
+     /                  \/                              \
+     https://example.org/ark:12345/x6np1wh8k/c3/s5.v7.xsl
+     \___________________________/\________/\___________/
                  Prefixes          Base Name    Suffixes
-      \__________________________________________________/
-                          Mapping ARK
+     \__________________________________________________/
+                         Mapping ARK
 
    When embedded in a URL, an ARK consists of a Compact ARK preceded by
    a Resolver Service.  The larger URL-based ARK is known as a Mapping
@@ -430,17 +441,17 @@ Table of Contents
    may be able to deal with inflections query strings, and content
    negotiation.
 
-   ANATOMY DETAILS
-   ===============
-                           Base Compact Name   Qualifiers
-                           _________________  ___________
-                          /                 \/           \
-      https://example.org/ark:12345/x6np1wh8k/c3/s5.v7.xsl
-              \_________/ \__/\___/\_/\_____/\____/\_____/
-                 NMA     Label NAAN |  Blade Parts Variants
-                                  Shoulder
-                              \_____________/
-                                 Check Zone
+      ANATOMY DETAILS
+      ===============
+                              Base Compact Name   Qualifiers
+                              _________________  ___________
+                             /                 \/           \
+         https://example.org/ark:12345/x6np1wh8k/c3/s5.v7.xsl
+                 \_________/ \__/\___/\_/\_____/\____/\_____/
+                    NMA     Label NAAN |  Blade Parts Variants
+                                     Shoulder
+                                 \_____________/
+                                    Check Zone
 
    In a closer view, the Compact ARK consists of a Base Compact Name
    followed potentially by Qualifiers.  The Base Name often, but not
@@ -455,19 +466,19 @@ Table of Contents
    and fully qualified forms.
 
    +==========+=======+==============+================================+
-   |   Form   |  Base | Compact Form |      Fully Qualified Form      |
+   | Form     | Base  | Compact Form | Fully Qualified Form           |
    +==========+=======+==============+================================+
-   |   NAAN   | 12345 |  ark:12345   | https://example.org/ark:12345  |
+   | NAAN     | 12345 | ark:12345    | https://example.org/ark:12345  |
    +----------+-------+--------------+--------------------------------+
-   | Shoulder |   x6  | ark:12345/x6 | https://example.org/ark:12345/ |
-   |          |       |              |               x6               |
+   | Shoulder | x6    | ark:12345/x6 | https://example.org/ark:12345/ |
+   |          |       |              | x6                             |
    +----------+-------+--------------+--------------------------------+
 
    Table 1: Example base, compact, and fully qualified form components.
 
    The ARK syntax can be summarized,
 
-                  [https://NMA/]ark:[/]NAAN/Name[Qualifiers]
+   [https://NMA/]ark:[/]NAAN/Name[Qualifiers]
 
    where the NMA, '/', and Qualifier parts are in brackets to indicate
    that they are optional.  The Base Compact Name is the substring
@@ -494,9 +505,9 @@ Table of Contents
    object.  Thus, for example, the following three ARKs are synonyms for
    just one information object:
 
-           http://example.org/rslvr/ark:12345/x6np1wh8k
-                https://example.com/ark:12345/x6np1wh8k
-                                    ark:12345/x6np1wh8k
+       http://example.org/rslvr/ark:12345/x6np1wh8k
+           https://example.com/ark:12345/x6np1wh8k
+                               ark:12345/x6np1wh8k
 
    Strictly speaking, in the realm of digital objects, these ARKs may
    lead over time to somewhat different or diverging instances of the
@@ -559,8 +570,8 @@ Table of Contents
    differ only in regard to new form versus old form labels.  Thus these
    two ARKs are equivalent:
 
-                             ark:/12345/x6np1wh8k
-                              ark:12345/x6np1wh8k
+       ark:/12345/x6np1wh8k
+       ark:12345/x6np1wh8k
 
    In a URL found in the wild, the label indicates that the URL stands a
    reasonable chance of being an ARK.  If the context warrants,
@@ -589,7 +600,7 @@ Table of Contents
 
    Recalling that the general form of the ARK is,
 
-                  [https://NMA/]ark:[/]NAAN/Name[Qualifiers]
+       [https://NMA/]ark:[/]NAAN/Name[Qualifiers]
 
    the part of the ARK directly following the "ark:" (or older "ark:/")
    label is the Name Assigning Authority Number (NAAN), up to but not
@@ -628,44 +639,44 @@ Table of Contents
    described below.
 
    +==========+================================+==========+============+
-   |  Shared  |     The immutable purpose,     |  Expect  |   OK for   |
-   |   NAAN   |   meaning, or connotation of   |    to    | long term  |
-   | meaning  |    ARKs bearing this NAAN.     | resolve? | reference? |
+   | Shared   | The immutable purpose,         | Expect   | OK for     |
+   | NAAN     | meaning, or connotation of     | to       | long term  |
+   | meaning  | ARKs bearing this NAAN.        | resolve? | reference? |
    +==========+================================+==========+============+
-   |  12345   |   Example ARKs appearing in    |  maybe   |     no     |
-   | examples |   documentation.  They might   |          |            |
-   |          |   resolve, but link checkers   |          |            |
-   |          |  usually need be concerned if  |          |            |
-   |          |  they don't.  They should not  |          |            |
-   |          |    be considered viable for    |          |            |
-   |          |      long term reference.      |          |            |
+   | 12345    | Example ARKs appearing in      | maybe    | no         |
+   | examples | documentation.  They might     |          |            |
+   |          | resolve, but link checkers     |          |            |
+   |          | need be concerned if they      |          |            |
+   |          | don't.  They should not be     |          |            |
+   |          | considered viable for long     |          |            |
+   |          | term reference.                |          |            |
    +----------+--------------------------------+----------+------------+
-   |  99152   |      ARKs for controlled       |   yes    |    yes     |
-   |  terms   |    vocabulary and ontology     |          |            |
-   |          |    terms, such as metadata     |          |            |
-   |          |  element names and pick-list   |          |            |
-   |          |  values.  They should resolve  |          |            |
-   |          |  to term definitions and are   |          |            |
-   |          |     suitable for long term     |          |            |
-   |          |           reference.           |          |            |
+   | 99152    | ARKs for controlled            | yes      | yes        |
+   | terms    | vocabulary and ontology        |          |            |
+   |          | terms, such as metadata        |          |            |
+   |          | element names and pick-list    |          |            |
+   |          | values.  They should resolve   |          |            |
+   |          | to term definitions and are    |          |            |
+   |          | suitable for long term         |          |            |
+   |          | reference.                     |          |            |
    +----------+--------------------------------+----------+------------+
-   |  99166   |  ARKs for people, groups, and  |   yes    |    yes     |
-   |  agents  |    institutions as "agents"    |          |            |
-   |          |   (actors, such as creators,   |          |            |
-   |          |   contributors, publishers,    |          |            |
-   |          |    performers, etc).  They     |          |            |
-   |          |    should resolve to agent     |          |            |
-   |          |  definitions and are suitable  |          |            |
-   |          |    for long term reference.    |          |            |
+   | 99166    | ARKs for people, groups, and   | yes      | yes        |
+   | agents   | institutions as "agents"       |          |            |
+   |          | (actors, such as creators,     |          |            |
+   |          | contributors, publishers,      |          |            |
+   |          | performers, etc).  They        |          |            |
+   |          | should resolve to agent        |          |            |
+   |          | definitions and are suitable   |          |            |
+   |          | for long term reference.       |          |            |
    +----------+--------------------------------+----------+------------+
-   |  99999   |  ARKs for test, development,   |  maybe   |     no     |
-   | test ids |   or experimental purposes,    |          |            |
-   |          |  often at scale.  They might   |          |            |
-   |          |   resolve, but link checkers   |          |            |
-   |          |  usually need be concerned if  |          |            |
-   |          |  they don't.  They should not  |          |            |
-   |          |    be considered viable for    |          |            |
-   |          |      long term reference.      |          |            |
+   | 99999    | ARKs for test, development,    | maybe    | no         |
+   | test ids | or experimental purposes,      |          |            |
+   |          | often at scale.  They might    |          |            |
+   |          | resolve, but link checkers     |          |            |
+   |          | usually need be concerned if   |          |            |
+   |          | they don't.  They should not   |          |            |
+   |          | be considered viable for       |          |            |
+   |          | long term reference.           |          |            |
    +----------+--------------------------------+----------+------------+
 
      Table 2: Four NAANs shared across all ARK-assigning organizations.
@@ -729,9 +740,9 @@ Table of Contents
    and blade string, especially not a "/" since it declares an object
    boundary (see the section on ARKs that reveal object hierarchy).
 
-     ark:12345/x6np1wh8k/c2/s4.pdf       # correct primordinal shoulder
-     ark:12345/x6/np1wh8k/c2/s4.pdf      # INCORRECT
-                 ^ WRONG
+      ark:12345/x6np1wh8k/c2/s4.pdf       # correct primordinal shoulder
+      ark:12345/x6/np1wh8k/c2/s4.pdf      # INCORRECT
+                  ^ WRONG
 
    This little bit of discretion shields organizations from end users
    making inferences about expected levels of support based on
@@ -841,13 +852,13 @@ Table of Contents
    its left indicates a containing object.  For example, publishing an
    ARK of the form,
 
-                       ark:12345/x54/xz/321
+       ark:12345/x54/xz/321
 
    is equivalent to publishing three ARKs,
 
-                       ark:12345/x54/xz/321
-                       ark:12345/x54/xz
-                       ark:12345/x54
+       ark:12345/x54/xz/321
+       ark:12345/x54/xz
+       ark:12345/x54
 
    together with a declaration that the first object is contained in the
    second object, and that the second object is contained in the third.
@@ -860,11 +871,11 @@ Table of Contents
    inferences about hierarchical or other inter-relatedness in the
    following ARKs:
 
-                       ark:12345/x54_xz_321
-                       ark:12345/x54_xz
-                       ark:12345/x54xz321
-                       ark:12345/x54xz
-                       ark:12345/x54
+       ark:12345/x54_xz_321
+       ark:12345/x54_xz
+       ark:12345/x54xz321
+       ark:12345/x54xz
+       ark:12345/x54
 
    Note that slashes around the ARK's NAAN (/12345/ in these examples)
    are not part of the ARK's Name and therefore do not indicate the
@@ -893,9 +904,9 @@ Table of Contents
    right, and up to the end of the ARK or to the next period is a
    suffix.  A Name may have more than one suffix, for example,
 
-                       ark:12345/x54.24
-                       ark:12345/x4z/x54.24
-                       ark:12345/x54.v18.fr.odf
+       ark:12345/x54.24
+       ark:12345/x4z/x54.24
+       ark:12345/x54.v18.fr.odf
 
    There are two main rules.  First, if two ARKs share the same root
    name but have different suffixes, the corresponding objects were
@@ -903,23 +914,23 @@ Table of Contents
    versions, etc.) by the assigner (NMA or NAA).  Thus, the following
    ARKs are variants of each other:
 
-                       ark:12345/x54.v18.fr.odf
-                       ark:12345/x54.321xz
-                       ark:12345/x54.44
+       ark:12345/x54.v18.fr.odf
+       ark:12345/x54.321xz
+       ark:12345/x54.44
 
    Second, publishing an ARK with a suffix implies the existence of at
    least one variant identified by the ARK without its suffix.  The ARK
    is otherwise silent about what additional variants might exist.  So
    publishing the ARK,
 
-                       ark:12345/x54.v18.fr.odf
+       ark:12345/x54.v18.fr.odf
 
    is equivalent to publishing the four ARKs,
 
-                       ark:12345/x54.v18.fr.odf
-                       ark:12345/x54.v18.fr
-                       ark:12345/x54.v18
-                       ark:12345/x54
+       ark:12345/x54.v18.fr.odf
+       ark:12345/x54.v18.fr
+       ark:12345/x54.v18
+       ark:12345/x54
 
    Revealing the possibility of variants is completely up to the
    assigner.  It is hard enough to commit to one object's name, let
@@ -968,9 +979,9 @@ Table of Contents
    equivalence.  For example, the following ARKs are equivalent for
    purposes of comparison and ARK service access:
 
-                               ark:12345/x5-4-xz-321
-      https://sneezy.dopey.com/ark:12345/x54--xz32-1
-                               ark:12345/x54xz321
+                                 ark:12345/x5-4-xz-321
+       https://sneezy.dopey.com/ark:12345/x54--xz32-1
+                                 ark:12345/x54xz321
 
    The '%' character is reserved for %-encoding all other octets that
    would appear in the ARK string, in the same manner as for URIs
@@ -1008,40 +1019,40 @@ Table of Contents
    Normalization of a received ARK for the purpose of octet-by-octet
    equality comparison with another ARK consists of the following steps.
 
-   1.   The NMA part (eg, everything from an initial "https://" up to
-        the first occurrence of "/ark:"), if present is removed.
+   1.  The NMA part (eg, everything from an initial "https://" up to the
+       first occurrence of "/ark:"), if present is removed.
 
-   2.   Any URI query string is removed (everything from the first
-        literal '?' to the end of the string).
+   2.  Any URI query string is removed (everything from the first
+       literal '?' to the end of the string).
 
-   3.   The first case-insensitive match on "ark:/" or "ark:" is
-        converted to "ark:" (replacing any uppercase letters and
-        removing any terminal '/').
+   3.  The first case-insensitive match on "ark:/" or "ark:" is
+       converted to "ark:" (replacing any uppercase letters and removing
+       any terminal '/').
 
-   4.   Any uppercase letters in the NAAN are converted to lowercase.
+   4.  Any uppercase letters in the NAAN are converted to lowercase.
 
-   5.   In the string that remains, the two characters following every
-        occurrence of '%' are converted to uppercase.  The case of all
-        other letters in the ARK string must be preserved.
+   5.  In the string that remains, the two characters following every
+       occurrence of '%' are converted to uppercase.  The case of all
+       other letters in the ARK string must be preserved.
 
-   6.   All hyphens are removed.  Implementors should be aware that non-
-        ASCII hyphen-like characters (eg, U+2010 to U+2015) may arrive
-        in the place of hyphens and, if they wish, remove them.
+   6.  All hyphens are removed.  Implementors should be aware that non-
+       ASCII hyphen-like characters (eg, U+2010 to U+2015) may arrive in
+       the place of hyphens and, if they wish, remove them.
 
-   7.   If normalization is being done as part of a resolution step, and
-        if the end of the remaining string matches a known inflection,
-        the inflection is noted and removed.
+   7.  If normalization is being done as part of a resolution step, and
+       if the end of the remaining string matches a known inflection,
+       the inflection is noted and removed.
 
-   8.   Structural characters (slash and period) are normalized: initial
-        and final occurrences are removed, and two structural characters
-        in a row (e.g., // or ./) are replaced by the first character,
-        iterating until each occurrence has at least one non-structural
-        character on either side.
+   8.  Structural characters (slash and period) are normalized: initial
+       and final occurrences are removed, and two structural characters
+       in a row (e.g., // or ./) are replaced by the first character,
+       iterating until each occurrence has at least one non-structural
+       character on either side.
 
-   9.   If there are any components with a period on the left and a
-        slash on the right, either the component and the preceding
-        period must be moved to the end of the Name part or the ARK must
-        be thrown out as malformed.
+   9.  If there are any components with a period on the left and a slash
+       on the right, either the component and the preceding period must
+       be moved to the end of the Name part or the ARK must be thrown
+       out as malformed.
 
    The resulting ARK string is now normalized.  Comparisons between
    normalized ARKs are case-sensitive, meaning that uppercase letters
@@ -1479,18 +1490,18 @@ Table of Contents
    respect to an identified permanence provider (guarantor), which will
    be the NMA.  It may include the following aspects.
 
-      (a) "object availability" -- whether and how access to the object
-      is supported (e.g., online 24x7, or offline only),
+   1.  "object availability" -- whether and how access to the object is
+       supported (e.g., online 24x7, or offline only),
 
-      (b) "identifier validity" -- under what conditions the identifier
-      will be or has been re-assigned,
+   2.  "identifier validity" -- under what conditions the identifier
+       will be or has been re-assigned,
 
-      (c) "content invariance" -- under what conditions the content of
-      the object is subject to change, and
+   3.  "content invariance" -- under what conditions the content of the
+       object is subject to change, and
 
-      (d) "change history" -- access to corrections, migrations, and
-      revisions, whether through links to the changed objects themselves
-      or through a document summarizing the change history
+   4.  "change history" -- access to corrections, migrations, and
+       revisions, whether through links to the changed objects
+       themselves or through a document summarizing the change history
 
    One approach to persistence statements, conceived independently from
    ARKs, can be found at [PStatements], with ongoing work available at
@@ -1523,15 +1534,15 @@ Table of Contents
    summarize these historical NAA documents.  Naming policy may include
    the following aspects.
 
-      (i) "similarity" -- (or "unity") the limit, defined by the NAA, to
-      the level of dissimilarity beyond which two similar objects
-      warrant separate identifiers but before which they share one
-      single identifier, and
+   1.  "similarity" -- (or "unity") the limit, defined by the NAA, to
+       the level of dissimilarity beyond which two similar objects
+       warrant separate identifiers but before which they share one
+       single identifier, and
 
-      (ii) "granularity" -- the limit, defined by the NAA, to the level
-      of object subdivision beyond which sub-objects do not warrant
-      separately assigned identifiers but before which sub-objects are
-      assigned separate identifiers.
+   2.  "granularity" -- the limit, defined by the NAA, to the level of
+       object subdivision beyond which sub-objects do not warrant
+       separately assigned identifiers but before which sub-objects are
+       assigned separate identifiers.
 
    Subnaming policy for an object describes the qualifiers that the NMA,
    in fulfilling its ongoing and evolving service obligations, allows as
@@ -1604,7 +1615,7 @@ Table of Contents
    The second special case is a minimal ARK description request string
    consisting of just "?info".  For example, entering the string,
 
-           n2t.net/ark:67531/metadc107835?info
+       n2t.net/ark:67531/metadc107835?info
 
    into the browser's location field directly precipitates a request for
    a metadata record describing the object identified by ark:67531/
@@ -1626,11 +1637,11 @@ Table of Contents
    lines (1 and 19) correspond to the client's steps to start the TCP
    session and the server's steps to end it, respectively.
 
-    1  C: [opens session]
+   1  C: [opens session]
        C: GET https://n2t.net/ark:67531/metadc107835?info HTTP/1.1
        C:
        S: HTTP/1.1 200 OK
-    5  S: Content-Type: text/plain
+   5  S: Content-Type: text/plain
        S: THUMP-Status: 0.6 200 OK
        S: Link: </ark:67531/metadc107835> rel="describes";
        S:
@@ -1774,18 +1785,18 @@ Table of Contents
    printed).  A normal HTML link for which the URL is not displayed
    looks like this.
 
-   <a href = "https://example.org/index.htm"> Click Here <a>
+       <a href = "https://example.org/index.htm"> Click Here <a>
 
    A URL with an embedded ARK invites access (via "?info") to extra
    services:
 
-   <a href = "https://example.org/ark:14697/b12345x"> Click Here <a>
+       <a href = "https://example.org/ark:14697/b12345x"> Click Here <a>
 
    Using the [N2T] resolver to provide identifier-scheme-agnostic
    protection against hostname instability, this ARK could be published
    as:
 
-   <a href = "https://n2t.net/ark:14697/b12345x"> Click Here <a>
+       <a href = "https://n2t.net/ark:14697/b12345x"> Click Here <a>
 
    An NAA will typically make known the associations it creates by
    publishing them in catalogs, actively advertizing them, or simply
@@ -1818,138 +1829,7 @@ Table of Contents
    security by helping users identify long-term reliable references to
    information objects.
 
-6.  References
-
-   [ANVL]     Kunze, J., Kahle, B., Masanes, J., and G. Mohr, "A Name-
-              Value Language", 2005,
-              <https://n2t.net/ark:/13030/c7x921j3h>.
-
-   [ARK]      Kunze, J., "Towards Electronic Persistence Using ARK
-              Identifiers", IWAW/ECDL Annual Workshop Proceedings 3rd,
-              August 2003, <https://n2t.net/ark:/13030/c7n00zt1z>.
-
-   [ARKagency]
-              Alliance, A., "ARK Maintenance Agency", 2021,
-              <https://arks.org>.
-
-   [ARKAtech] Alliance, A., "ARK Alliance Technical Working Group",
-              2022, <https://wiki.lyrasis.org/display/ARKs/
-              Technical+Working+Group>.
-
-   [ARKdrafts]
-              Alliance, A., "ARK Drafts Repository", 2022,
-              <https://github.com/arks-org/arkspec>.
-
-   [ARKspecs] Alliance, A., "ARK Maintenance Agency Specifications",
-              2021, <https://arks.org/specs/>.
-
-   [CURIE]    Note, W. W. G., "CURIE Syntax 1.0", December 2010,
-              <https://www.w3.org/TR/2010/NOTE-curie-20101216/>.
-
-   [DCKernel] Initiative, D. C. M., "Kernel Metadata Working Group",
-              2001-2008, <https://dublincore.org/groups/kernel/>.
-
-   [DOI]      Foundation, I. D., "The Digital Object Identifier (DOI)
-              System", February 2001, <https://dx.doi.org/10.1000/203>.
-
-   [ERC]      Kunze, J. and A. Turner, "Kernel Metadata and Electronic
-              Resource Citations", October 2007,
-              <https://n2t.net/ark:/13030/c7sn0141m>.
-
-   [Handle]   Lannom, L., "Handle System Overview", ICSTI Forum No. 30,
-              April 1999, <https://eric.ed.gov/?id=ED450775>.
-
-   [Kernel]   Kunze, J., "A Metadata Kernel for Electronic Permanence",
-              Journal of Digital Information Vol 2, Issue 2,
-              ISSN 1368-7506, January 2002,
-              <https://n2t.net/ark:/13030/c7rr1pm49>.
-
-   [N2T]      Alliance, A., "Name-to-Thing Resolver", August 2006,
-              <https://n2t.net>.
-
-   [NAANregistry]
-              ARKs.org, "NAAN Registry", 2019,
-              <https://arks.org/e/pub/naan_registry.txt>.
-
-   [NAANrequest]
-              ARKs.org, "NAAN Request Form", 2018,
-              <https://n2t.net/e/naan_request>.
-
-   [NLMPerm]  Byrnes, M., "Permanence Levels and the Archives for NLM's
-              Permanent Web Documents", March 2005,
-              <https://www.nlm.nih.gov/pubs/techbull/ma05/
-              ma05_archive.html>.
-
-   [NOID]     Kunze, J., "Nice Opaque Identifiers", April 2006,
-              <https://metacpan.org/pod/distribution/Noid/noid>.
-
-   [PStatements]
-              Kunze, J., "Persistence statements: describing digital
-              stickiness", October 2016,
-              <https://n2t.net/ark:/13030/c7833mx7t>.
-
-   [PURL]     Shafer, K., "Introduction to Persistent Uniform Resource
-              Locators", 1996,
-              <https://www.internetsociety.org/inet96/proceedings/a4/
-              a4_1.htm>.
-
-   [RFC0854]  Postel, J. and J. Reynolds, "Telnet Protocol
-              Specification", STD 8, RFC 854, DOI 10.17487/RFC0854, May
-              1983, <https://www.rfc-editor.org/info/rfc854>.
-
-   [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
-              STD 13, RFC 1034, DOI 10.17487/RFC1034, November 1987,
-              <https://www.rfc-editor.org/info/rfc1034>.
-
-   [RFC2141]  Moats, R., "URN Syntax", RFC 2141, DOI 10.17487/RFC2141,
-              May 1997, <https://www.rfc-editor.org/info/rfc2141>.
-
-   [RFC2288]  Lynch, C., Preston, C., and R. Daniel, "Using Existing
-              Bibliographic Identifiers as Uniform Resource Names",
-              RFC 2288, DOI 10.17487/RFC2288, February 1998,
-              <https://www.rfc-editor.org/info/rfc2288>.
-
-   [RFC2611]  Daigle, L., van Gulik, D., Iannella, R., and P. Faltstrom,
-              "URN Namespace Definition Mechanisms", BCP 33, RFC 2611,
-              DOI 10.17487/RFC2611, June 1999,
-              <https://www.rfc-editor.org/info/rfc2611>.
-
-   [RFC2616]  Fielding, R., Gettys, J., Mogul, J., Frystyk, H.,
-              Masinter, L., Leach, P., and T. Berners-Lee, "Hypertext
-              Transfer Protocol -- HTTP/1.1", RFC 2616,
-              DOI 10.17487/RFC2616, June 1999,
-              <https://www.rfc-editor.org/info/rfc2616>.
-
-   [RFC2822]  Resnick, P., Ed., "Internet Message Format", RFC 2822,
-              DOI 10.17487/RFC2822, April 2001,
-              <https://www.rfc-editor.org/info/rfc2822>.
-
-   [RFC2915]  Mealling, M. and R. Daniel, "The Naming Authority Pointer
-              (NAPTR) DNS Resource Record", RFC 2915,
-              DOI 10.17487/RFC2915, September 2000,
-              <https://www.rfc-editor.org/info/rfc2915>.
-
-   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
-              Resource Identifier (URI): Generic Syntax", STD 66,
-              RFC 3986, DOI 10.17487/RFC3986, January 2005,
-              <https://www.rfc-editor.org/info/rfc3986>.
-
-   [RFC5013]  Kunze, J. and T. Baker, "The Dublin Core Metadata Element
-              Set", RFC 5013, DOI 10.17487/RFC5013, August 2007,
-              <https://www.rfc-editor.org/info/rfc5013>.
-
-   [shoulderrequest]
-              ARKs.org, "Shoulder Request Form", 2021,
-              <https://n2t.net/e/shoulder_request>.
-
-   [SPT]      Kunze, J., "What is Suffix Passthrough?", May 2021,
-              <http://n2t.net/e/suffix_passthrough.html>.
-
-   [THUMP]    Gamiel, K. and J. Kunze, "The HTTP URL Mapping Protocol",
-              August 2007, <https://www.ietf.org/archive/id/draft-kunze-
-              thump-03.txt>.
-
-Appendix A.  ARK Maintenance Agency: arks.org
+6.  Appendix A.  ARK Maintenance Agency: arks.org
 
    The ARK Maintenance Agency [ARKagency] at arks.org has several
    functions.
@@ -1967,7 +1847,7 @@ Appendix A.  ARK Maintenance Agency: arks.org
    *  To be a locus of discussion about future versions of the ARK
       specification.
 
-Appendix B.  Looking up NMAs Distributed via DNS
+7.  Appendix B.  Looking up NMAs Distributed via DNS
 
    This subsection introduces an older method for looking up NMAs that
    is based on the method for discovering URN resolvers described in
@@ -1991,12 +1871,12 @@ Appendix B.  Looking up NMAs Distributed via DNS
    shows three example NAPTR records ready to use with the Maptr
    algorithm.
 
-     12026.ark.arpa.
-     ;; US Library of Congress
-     ;;       order pref flags service regexp  replacement
-      IN NAPTR  0     0   "h"  "ark"   "USLC"  lhc.nlm.nih.gov:8080
-      IN NAPTR  0     0   "h"  "ark"   "USLC"  foobar.zaf.org
-      IN NAPTR  0     0   "h"  "ark"   "USLC"  sneezy.dopey.com
+   12026.ark.arpa.
+   ;; US Library of Congress
+   ;;       order pref flags service regexp  replacement
+   IN NAPTR  0     0   "h"  "ark"   "USLC"  lhc.nlm.nih.gov:8080
+   IN NAPTR  0     0   "h"  "ark"   "USLC"  foobar.zaf.org
+   IN NAPTR  0     0   "h"  "ark"   "USLC"  sneezy.dopey.com
 
    All the fields are held constant for Maptr except for the "flags",
    "regexp", and "replacement" fields.  The "service" field contains the
@@ -2016,10 +1896,10 @@ Appendix B.  Looking up NMAs Distributed via DNS
    distributed nature of DNS by redirecting the query to another domain
    name.  It looks like this.
 
-     12345.ark.arpa.
-     ;; Digital Library Consortium
-     ;;       order pref flags service regexp replacement
-      IN NAPTR  0     0    ""  "ark"     ""   dlc.spct.org.
+   12345.ark.arpa.
+   ;; Digital Library Consortium
+   ;;       order pref flags service regexp replacement
+   IN NAPTR  0     0    ""  "ark"     ""   dlc.spct.org.
 
    Here is the Maptr algorithm for ARK mapping authority discovery.  In
    it replace <NAAN> with the NAAN from the ARK for which an NMA is
@@ -2075,6 +1955,137 @@ Appendix B.  Looking up NMAs Distributed via DNS
                    }
            }
    }
+
+8.  Informative References
+
+   [ANVL]     Kunze, J., Kahle, B., Masanes, J., and G. Mohr, "A Name-
+              Value Language", 2005,
+              <https://n2t.net/ark:/13030/c7x921j3h>.
+
+   [ARK]      Kunze, J., "Towards Electronic Persistence Using ARK
+              Identifiers", IWAW/ECDL Annual Workshop Proceedings , 3
+              August 2003, <https://n2t.net/ark:/13030/c7n00zt1z>.
+
+   [ARKagency]
+              ARK Alliance, "ARK Maintenance Agency", 2021,
+              <https://arks.org>.
+
+   [ARKAtech] ARK Alliance, "ARK Alliance Technical Working Group",
+              2022, <https://wiki.lyrasis.org/display/ARKs/
+              Technical+Working+Group>.
+
+   [ARKdrafts]
+              ARK Alliance, "ARK Drafts Repository", 2022,
+              <https://github.com/arks-org/arkspec>.
+
+   [ARKspecs] ARK Alliance, "ARK Maintenance Agency Specifications",
+              2021, <https://arks.org/specs/>.
+
+   [CURIE]    W3C, "CURIE Syntax 1.0", December 2010,
+              <https://www.w3.org/TR/2010/NOTE-curie-20101216/>.
+
+   [DCKernel] Dublin Core Metadata Initiative, "Kernel Metadata Working
+              Group", 20012008, <https://dublincore.org/groups/kernel/>.
+
+   [DOI]      I. D. Foundation, "The Digital Object Identifier (DOI)
+              System", February 2001, <https://dx.doi.org/10.1000/203>.
+
+   [ERC]      Kunze, J. and A. Turner, "Kernel Metadata and Electronic
+              Resource Citations", October 2007,
+              <https://n2t.net/ark:/13030/c7sn0141m>.
+
+   [Handle]   Lannom, L., "Handle System Overview", ICSTI Forum No. 30 ,
+              April 1999, <https://eric.ed.gov/?id=ED450775>.
+
+   [Kernel]   Kunze, J., "A Metadata Kernel for Electronic Permanence",
+              Journal of Digital Information Vol 2, Issue 2, ISSN
+              1368-7506 , January 2002,
+              <https://n2t.net/ark:/13030/c7rr1pm49>.
+
+   [N2T]      ARK Alliance, "Name-to-Thing Resolver", August 2006,
+              <https://n2t.net>.
+
+   [NAANregistry]
+              ARKs.org, "NAAN Registry", 2019,
+              <https://arks.org/e/pub/naan_registry.txt>.
+
+   [NAANrequest]
+              ARKs.org, "NAAN Request Form", 2018,
+              <https://n2t.net/e/naan_request>.
+
+   [NLMPerm]  Byrnes, M., "Permanence Levels and the Archives for NLM's
+              Permanent Web Documents", March 2005,
+              <https://www.nlm.nih.gov/pubs/techbull/ma05/
+              ma05_archive.html>.
+
+   [NOID]     Kunze, J., "Nice Opaque Identifiers", April 2006,
+              <https://metacpan.org/pod/distribution/Noid/noid>.
+
+   [PStatements]
+              Kunze, J., "Persistence statements: describing digital
+              stickiness", October 2016,
+              <https://n2t.net/ark:/13030/c7833mx7t>.
+
+   [PURL]     Shafer, K., "Introduction to Persistent Uniform Resource
+              Locators", 1996,
+              <https://www.internetsociety.org/inet96/proceedings/a4/
+              a4_1.htm>.
+
+   [RFC0854]  Postel, J. and J. Reynolds, "Telnet Protocol
+              Specification", STD 8, RFC 854, DOI 10.17487/RFC0854, May
+              1983, <https://www.rfc-editor.org/rfc/rfc854>.
+
+   [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
+              STD 13, RFC 1034, DOI 10.17487/RFC1034, November 1987,
+              <https://www.rfc-editor.org/rfc/rfc1034>.
+
+   [RFC2141]  Moats, R., "URN Syntax", RFC 2141, DOI 10.17487/RFC2141,
+              May 1997, <https://www.rfc-editor.org/rfc/rfc2141>.
+
+   [RFC2288]  Lynch, C., Preston, C., and R. Daniel, "Using Existing
+              Bibliographic Identifiers as Uniform Resource Names",
+              RFC 2288, DOI 10.17487/RFC2288, February 1998,
+              <https://www.rfc-editor.org/rfc/rfc2288>.
+
+   [RFC2611]  Daigle, L., van Gulik, D., Iannella, R., and P. Faltstrom,
+              "URN Namespace Definition Mechanisms", BCP 33, RFC 2611,
+              DOI 10.17487/RFC2611, June 1999,
+              <https://www.rfc-editor.org/rfc/rfc2611>.
+
+   [RFC2616]  Fielding, R., Gettys, J., Mogul, J., Frystyk, H.,
+              Masinter, L., Leach, P., and T. Berners-Lee, "Hypertext
+              Transfer Protocol -- HTTP/1.1", RFC 2616,
+              DOI 10.17487/RFC2616, June 1999,
+              <https://www.rfc-editor.org/rfc/rfc2616>.
+
+   [RFC2822]  Resnick, P., Ed., "Internet Message Format", RFC 2822,
+              DOI 10.17487/RFC2822, April 2001,
+              <https://www.rfc-editor.org/rfc/rfc2822>.
+
+   [RFC2915]  Mealling, M. and R. Daniel, "The Naming Authority Pointer
+              (NAPTR) DNS Resource Record", RFC 2915,
+              DOI 10.17487/RFC2915, September 2000,
+              <https://www.rfc-editor.org/rfc/rfc2915>.
+
+   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+              Resource Identifier (URI): Generic Syntax", STD 66,
+              RFC 3986, DOI 10.17487/RFC3986, January 2005,
+              <https://www.rfc-editor.org/rfc/rfc3986>.
+
+   [RFC5013]  Kunze, J. and T. Baker, "The Dublin Core Metadata Element
+              Set", RFC 5013, DOI 10.17487/RFC5013, August 2007,
+              <https://www.rfc-editor.org/rfc/rfc5013>.
+
+   [shoulderrequest]
+              ARKs.org, "Shoulder Request Form", 2021,
+              <https://n2t.net/e/shoulder_request>.
+
+   [SPT]      Kunze, J., "What is Suffix Passthrough?", May 2021,
+              <http://n2t.net/e/suffix_passthrough.html>.
+
+   [THUMP]    Gamiel, K. and J. Kunze, "The HTTP URL Mapping Protocol",
+              August 2007, <https://www.ietf.org/archive/id/draft-kunze-
+              thump-03.txt>.
 
 Authors' Addresses
 

@@ -5,8 +5,8 @@
 Network Working Group                                           J. Kunze
 Internet-Draft                                California Digital Library
 Intended status: Informational                                 E. Bermès
-Expires: 13 April 2023                  Bibliothèque nationale de France
-                                                         10 October 2022
+Expires: 15 April 2023                  Bibliothèque nationale de France
+                                                         12 October 2022
 
 
                        The ARK Identifier Scheme
@@ -64,7 +64,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 April 2023.
+   This Internet-Draft will expire on 15 April 2023.
 
 Copyright Notice
 
@@ -118,9 +118,9 @@ Table of Contents
      5.4.  Advice to Web Clients
      5.5.  Enhancements and Related Specifications
      5.6.  Security Considerations
-   6.  Appendix A.  ARK Maintenance Agency: arks.org
-   7.  Appendix B.  Looking up NMAs Distributed via DNS
-   8.  Informative References
+   6.  Informative References
+   Appendix A.  Appendix A.  ARK Maintenance Agency: arks.org
+   Appendix B.  Appendix B.  Looking up NMAs Distributed via DNS
    Authors' Addresses
 
 1.  Introduction
@@ -646,10 +646,10 @@ Table of Contents
    | 12345    | Example ARKs appearing in      | maybe    | no         |
    | examples | documentation.  They might     |          |            |
    |          | resolve, but link checkers     |          |            |
-   |          | need be concerned if they      |          |            |
-   |          | don't.  They should not be     |          |            |
-   |          | considered viable for long     |          |            |
-   |          | term reference.                |          |            |
+   |          | usually need not be concerned  |          |            |
+   |          | if they don't.  They should    |          |            |
+   |          | not be considered viable for   |          |            |
+   |          | long term reference.           |          |            |
    +----------+--------------------------------+----------+------------+
    | 99152    | ARKs for controlled            | yes      | yes        |
    | terms    | vocabulary and ontology        |          |            |
@@ -675,8 +675,8 @@ Table of Contents
    |          | resolve, but link checkers     |          |            |
    |          | usually need be concerned if   |          |            |
    |          | they don't.  They should not   |          |            |
-   |          | be considered viable for       |          |            |
-   |          | long term reference.           |          |            |
+   |          | be considered viable for long  |          |            |
+   |          | term reference.                |          |            |
    +----------+--------------------------------+----------+------------+
 
      Table 2: Four NAANs shared across all ARK-assigning organizations.
@@ -1829,134 +1829,7 @@ Table of Contents
    security by helping users identify long-term reliable references to
    information objects.
 
-6.  Appendix A.  ARK Maintenance Agency: arks.org
-
-   The ARK Maintenance Agency [ARKagency] at arks.org has several
-   functions.
-
-   *  To manage the registry of organizations that will be assigning
-      ARKs.  Organizations can request or update a NAAN by filling out
-      the NAAN Request Form [NAANrequest].
-
-   *  To be a clearinghouse for information about ARKs, such as best
-      practices, introductory documentation, tutorials, community
-      forums, etc.  These supplemental resources help ARK implementors
-      in high-level applications across different sectors and
-      disciplines, and with a variety of metadata standards.
-
-   *  To be a locus of discussion about future versions of the ARK
-      specification.
-
-7.  Appendix B.  Looking up NMAs Distributed via DNS
-
-   This subsection introduces an older method for looking up NMAs that
-   is based on the method for discovering URN resolvers described in
-   [RFC2915].  It relies on querying the DNS system for Name Authority
-   Pointer (NAPTR) records that mirror the contents of the plain text
-   [NAANregistry] database.  A query is submitted to DNS asking for a
-   list of resolvers that match a given NAAN.  DNS distributes the query
-   to the particular DNS servers that can best provide the answer,
-   unless the answer can be found more quickly in a local DNS cache as a
-   side-effect of a recent query.  Responses come back inside NAPTR
-   records.  The normal result is one or more candidate NMAs.
-
-   In its full generality the [RFC2915] algorithm ambitiously
-   accommodates a complex set of preferences, orderings, protocols,
-   mapping services, regular expression rewriting rules, and DNS record
-   types.  This subsection proposes a drastic simplification of it for
-   the special case of ARK mapping authority discovery.  The simplified
-   algorithm is called Maptr.  It uses only one DNS record type (NAPTR)
-   and restricts most of its field values to constants.  The following
-   hypothetical excerpt from a DNS data file for the NAAN known as 12026
-   shows three example NAPTR records ready to use with the Maptr
-   algorithm.
-
-   12026.ark.arpa.
-   ;; US Library of Congress
-   ;;       order pref flags service regexp  replacement
-   IN NAPTR  0     0   "h"  "ark"   "USLC"  lhc.nlm.nih.gov:8080
-   IN NAPTR  0     0   "h"  "ark"   "USLC"  foobar.zaf.org
-   IN NAPTR  0     0   "h"  "ark"   "USLC"  sneezy.dopey.com
-
-   All the fields are held constant for Maptr except for the "flags",
-   "regexp", and "replacement" fields.  The "service" field contains the
-   constant value "ark" so that NAPTR records participating in the Maptr
-   algorithm will not be confused with other NAPTR records.  The "order"
-   and "pref" fields are held to 0 (zero) and otherwise ignored for now;
-   the algorithm may evolve to use these fields for ranking decisions
-   when usage patterns and local administrative needs are better
-   understood.
-
-   When a Maptr query returns a record with a flags field of "h" (for
-   host, a Maptr extension to the NAPTR flags), the replacement field
-   contains the NMA (host) of an ARK service provider.  When a query
-   returns a record with a flags field of "" (the empty string), the
-   client needs to submit a new query containing the domain name found
-   in the replacement field.  This second sort of record exploits the
-   distributed nature of DNS by redirecting the query to another domain
-   name.  It looks like this.
-
-   12345.ark.arpa.
-   ;; Digital Library Consortium
-   ;;       order pref flags service regexp replacement
-   IN NAPTR  0     0    ""  "ark"     ""   dlc.spct.org.
-
-   Here is the Maptr algorithm for ARK mapping authority discovery.  In
-   it replace <NAAN> with the NAAN from the ARK for which an NMA is
-   sought.
-
-   1.  Initialize the DNS query: type=NAPTR, query=<NAAN>.ark.arpa.
-
-   2.  Submit the query to DNS and retrieve (NAPTR) records, discarding
-       any record that does not have "ark" for the service field.
-
-   3.  All remaining records with a flags fields of "h" contain
-       candidate NMAs in their replacement fields.  Set them aside, if
-       any.
-
-   4.  Any record with an empty flags field ("") has a replacement field
-       containing a new domain name to which a subsequent query should
-       be redirected.  For each such record, set query=<replacement>
-       then go to step (2).  When all such records have been recursively
-       exhausted, go to step (5).
-
-   5.  All redirected queries have been resolved and a set of candidate
-       NMAs has been accumulated from steps (3).  If there are zero
-       NMAs, exit -- no mapping authority was found.  If there is one or
-       more NMA, choose one using any criteria you wish, then exit.
-
-   A Perl script that implements this algorithm is included here.
-
-   #!/usr/bin/env perl
-
-   use Net::DNS;                           # include simple DNS package
-   my $qtype = "NAPTR";                    # initialize query type
-   my $naa = shift;                        # get NAAN script argument
-   my $mad = new Net::DNS::Resolver;       # mapping authority discovery
-
-   &maptr("$naa.ark.arpa");                # call maptr - that's it
-
-   sub maptr {                             # recursive maptr algorithm
-           my $dname = shift;              # domain name as argument
-           my ($rr, $order, $pref, $flags, $service, $regexp,
-                   $replacement);
-           my $query = $mad->query($dname, $qtype);
-           return                          # non-productive query
-                   if (! $query || ! $query->answer);
-           foreach $rr ($query->answer) {
-                   next                    # skip records of wrong type
-                           if ($rr->type ne $qtype);
-                   ($order, $pref, $flags, $service, $regexp,
-                           $replacement) = split(/\s/, $rr->rdatastr);
-                   if ($flags eq "") {
-                           &maptr($replacement);   # recurse
-                   } elsif ($flags eq "h") {
-                           print "$replacement\n"; # candidate NMA
-                   }
-           }
-   }
-
-8.  Informative References
+6.  Informative References
 
    [ANVL]     Kunze, J., Kahle, B., Masanes, J., and G. Mohr, "A Name-
               Value Language", 2005,
@@ -2086,6 +1959,133 @@ Table of Contents
    [THUMP]    Gamiel, K. and J. Kunze, "The HTTP URL Mapping Protocol",
               August 2007, <https://www.ietf.org/archive/id/draft-kunze-
               thump-03.txt>.
+
+Appendix A.  Appendix A.  ARK Maintenance Agency: arks.org
+
+   The ARK Maintenance Agency [ARKagency] at arks.org has several
+   functions.
+
+   *  To manage the registry of organizations that will be assigning
+      ARKs.  Organizations can request or update a NAAN by filling out
+      the NAAN Request Form [NAANrequest].
+
+   *  To be a clearinghouse for information about ARKs, such as best
+      practices, introductory documentation, tutorials, community
+      forums, etc.  These supplemental resources help ARK implementors
+      in high-level applications across different sectors and
+      disciplines, and with a variety of metadata standards.
+
+   *  To be a locus of discussion about future versions of the ARK
+      specification.
+
+Appendix B.  Appendix B.  Looking up NMAs Distributed via DNS
+
+   This subsection introduces an older method for looking up NMAs that
+   is based on the method for discovering URN resolvers described in
+   [RFC2915].  It relies on querying the DNS system for Name Authority
+   Pointer (NAPTR) records that mirror the contents of the plain text
+   [NAANregistry] database.  A query is submitted to DNS asking for a
+   list of resolvers that match a given NAAN.  DNS distributes the query
+   to the particular DNS servers that can best provide the answer,
+   unless the answer can be found more quickly in a local DNS cache as a
+   side-effect of a recent query.  Responses come back inside NAPTR
+   records.  The normal result is one or more candidate NMAs.
+
+   In its full generality the [RFC2915] algorithm ambitiously
+   accommodates a complex set of preferences, orderings, protocols,
+   mapping services, regular expression rewriting rules, and DNS record
+   types.  This subsection proposes a drastic simplification of it for
+   the special case of ARK mapping authority discovery.  The simplified
+   algorithm is called Maptr.  It uses only one DNS record type (NAPTR)
+   and restricts most of its field values to constants.  The following
+   hypothetical excerpt from a DNS data file for the NAAN known as 12026
+   shows three example NAPTR records ready to use with the Maptr
+   algorithm.
+
+   12026.ark.arpa.
+   ;; US Library of Congress
+   ;;       order pref flags service regexp  replacement
+   IN NAPTR  0     0   "h"  "ark"   "USLC"  lhc.nlm.nih.gov:8080
+   IN NAPTR  0     0   "h"  "ark"   "USLC"  foobar.zaf.org
+   IN NAPTR  0     0   "h"  "ark"   "USLC"  sneezy.dopey.com
+
+   All the fields are held constant for Maptr except for the "flags",
+   "regexp", and "replacement" fields.  The "service" field contains the
+   constant value "ark" so that NAPTR records participating in the Maptr
+   algorithm will not be confused with other NAPTR records.  The "order"
+   and "pref" fields are held to 0 (zero) and otherwise ignored for now;
+   the algorithm may evolve to use these fields for ranking decisions
+   when usage patterns and local administrative needs are better
+   understood.
+
+   When a Maptr query returns a record with a flags field of "h" (for
+   host, a Maptr extension to the NAPTR flags), the replacement field
+   contains the NMA (host) of an ARK service provider.  When a query
+   returns a record with a flags field of "" (the empty string), the
+   client needs to submit a new query containing the domain name found
+   in the replacement field.  This second sort of record exploits the
+   distributed nature of DNS by redirecting the query to another domain
+   name.  It looks like this.
+
+   12345.ark.arpa.
+   ;; Digital Library Consortium
+   ;;       order pref flags service regexp replacement
+   IN NAPTR  0     0    ""  "ark"     ""   dlc.spct.org.
+
+   Here is the Maptr algorithm for ARK mapping authority discovery.  In
+   it replace <NAAN> with the NAAN from the ARK for which an NMA is
+   sought.
+
+   1.  Initialize the DNS query: type=NAPTR, query=<NAAN>.ark.arpa.
+
+   2.  Submit the query to DNS and retrieve (NAPTR) records, discarding
+       any record that does not have "ark" for the service field.
+
+   3.  All remaining records with a flags fields of "h" contain
+       candidate NMAs in their replacement fields.  Set them aside, if
+       any.
+
+   4.  Any record with an empty flags field ("") has a replacement field
+       containing a new domain name to which a subsequent query should
+       be redirected.  For each such record, set query=<replacement>
+       then go to step (2).  When all such records have been recursively
+       exhausted, go to step (5).
+
+   5.  All redirected queries have been resolved and a set of candidate
+       NMAs has been accumulated from steps (3).  If there are zero
+       NMAs, exit -- no mapping authority was found.  If there is one or
+       more NMA, choose one using any criteria you wish, then exit.
+
+   A Perl script that implements this algorithm is included here.
+
+   #!/usr/bin/env perl
+
+   use Net::DNS;                           # include simple DNS package
+   my $qtype = "NAPTR";                    # initialize query type
+   my $naa = shift;                        # get NAAN script argument
+   my $mad = new Net::DNS::Resolver;       # mapping authority discovery
+
+   &maptr("$naa.ark.arpa");                # call maptr - that's it
+
+   sub maptr {                             # recursive maptr algorithm
+           my $dname = shift;              # domain name as argument
+           my ($rr, $order, $pref, $flags, $service, $regexp,
+                   $replacement);
+           my $query = $mad->query($dname, $qtype);
+           return                          # non-productive query
+                   if (! $query || ! $query->answer);
+           foreach $rr ($query->answer) {
+                   next                    # skip records of wrong type
+                           if ($rr->type ne $qtype);
+                   ($order, $pref, $flags, $service, $regexp,
+                           $replacement) = split(/\s/, $rr->rdatastr);
+                   if ($flags eq "") {
+                           &maptr($replacement);   # recurse
+                   } elsif ($flags eq "h") {
+                           print "$replacement\n"; # candidate NMA
+                   }
+           }
+   }
 
 Authors' Addresses
 

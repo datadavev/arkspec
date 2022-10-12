@@ -119,8 +119,8 @@ Table of Contents
      5.5.  Enhancements and Related Specifications
      5.6.  Security Considerations
    6.  Informative References
-   Appendix A.  Appendix A.  ARK Maintenance Agency: arks.org
-   Appendix B.  Appendix B.  Looking up NMAs Distributed via DNS
+   Appendix A.  ARK Maintenance Agency: arks.org
+   Appendix B.  Looking up NMAs Distributed via DNS
    Authors' Addresses
 
 1.  Introduction
@@ -1960,7 +1960,7 @@ Table of Contents
               August 2007, <https://www.ietf.org/archive/id/draft-kunze-
               thump-03.txt>.
 
-Appendix A.  Appendix A.  ARK Maintenance Agency: arks.org
+Appendix A.  ARK Maintenance Agency: arks.org
 
    The ARK Maintenance Agency [ARKagency] at arks.org has several
    functions.
@@ -1978,7 +1978,7 @@ Appendix A.  Appendix A.  ARK Maintenance Agency: arks.org
    *  To be a locus of discussion about future versions of the ARK
       specification.
 
-Appendix B.  Appendix B.  Looking up NMAs Distributed via DNS
+Appendix B.  Looking up NMAs Distributed via DNS
 
    This subsection introduces an older method for looking up NMAs that
    is based on the method for discovering URN resolvers described in

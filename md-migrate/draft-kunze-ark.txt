@@ -5,8 +5,8 @@
 Network Working Group                                           J. Kunze
 Internet-Draft                                California Digital Library
 Intended status: Informational                                 E. Bermès
-Expires: 15 April 2023                  Bibliothèque nationale de France
-                                                         12 October 2022
+Expires: 20 April 2023                  Bibliothèque nationale de France
+                                                         17 October 2022
 
 
                        The ARK Identifier Scheme
@@ -64,7 +64,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 April 2023.
+   This Internet-Draft will expire on 20 April 2023.
 
 Copyright Notice
 

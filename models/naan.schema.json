@@ -1,0 +1,42 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id":"https://w3id.org/resolver/root.metadata.json",
+    "title":"Root metadata for describing an identifier",
+    "type":"object",
+    "properties":{
+        "id":{
+            "description":"The identifier described by this document",
+            "type":"string"
+        },
+        "location":{
+            "description":"Location at which identified resource may be retrieved",
+            "type":"string",
+            "format":"uri"            
+        },
+        "t_created":{
+            "description":"Origin time of the identifier",
+            "type": "string",
+            "format":"date-time"
+        },
+        "t_modified":{
+            "description":"Time at which identifier metadat was last modified. If not specified, then equal to t_created.",
+            "type": "string",
+            "format":"date-time"
+        },
+        "type": {
+            "description":"The URI of the type definition of the identified resource",
+            "type":"string",
+            "format":"uri"
+        },
+        "creator":{
+            "description":"The creator of the identifier",
+            "type": "string",
+            "format": "uri"
+        },
+        "about":{
+            "description":"Descriptive metadata about the identified resource.",
+            "type":"object"
+        }
+    },
+    "required":["id","location","t_created"]
+}
